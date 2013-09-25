@@ -21,6 +21,7 @@
 #include "mpx_supt.h"
 #include "comhan.h"
 #include "start.h"
+#include "config.h"
 
 /*
 	Procedure: main
@@ -31,7 +32,7 @@
 		   sys_exit
 */
 int main(void){
-	int system_init = sys_init(MODULE_R1);
+	int system_init = sys_init(MODULE_R2);
 	comhan();
 	return 0;
 	sys_exit();
