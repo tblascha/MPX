@@ -22,6 +22,7 @@
 #include "comhan.h"
 #include "start.h"
 #include "config.h"
+#include "error.h"
 
 /*
 	Procedure: main

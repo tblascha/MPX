@@ -28,6 +28,7 @@
 #include <string.h>
 #include "mpx_supt.h"
 #include "comhan.h"
+#include "error.h"
 
 /*
 	Procedure: comhan
