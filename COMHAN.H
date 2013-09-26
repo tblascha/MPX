@@ -48,3 +48,4 @@ void help(char function_name [] /* function name from input*/);
 void look_dir(char directory[] /* directory name from input*/);
 void disp_version(/* no parameters */ );
 void ignore_case(char a[] /*initial string*/, char *b /*new string in lower case*/);
+void page(void);

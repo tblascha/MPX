@@ -19,5 +19,4 @@
 #include "config.h"
 
 #define OK 0
-#define PCB_DOESNT_EXIST 1
 // other defines as needed 

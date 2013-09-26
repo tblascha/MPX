@@ -20,10 +20,16 @@
 #define VER 2.0
 #define DATE 9/25/2013
 
-#include <stdio.h>
+// error codes
+#define OK 0
+#define PCB_DOESNT_EXIST 130
+#define PRIORITY_INVALID 131
+#define NAME_INVALID 132
+#define CLASS_INVALID 133
+
 
 // PCB Structure
-typedef struct PCB {
+typedef struct{
 	char name[12]; // name of process
 	int classs;
 	int priority;
@@ -32,13 +38,13 @@ typedef struct PCB {
 	unsigned char *base;
 	struct PCB *next; // next PCB in queue
 	struct PCB *prev; // prev PCB in queue
-} PCB;
+}PCB;
 
 // Queue Structure
-typedef struct queue {
+typedef struct{
 	int count; // number of items
 	PCB *head; // start of queue
 	PCB *tail; // end of queue
-} queue;
+}queue;
 // There are four queue is main program ready, blocked, ready_suspended, blocked_suspeneded
 

@@ -14,4 +14,11 @@
 			 help calls
 			 
 ***********************************************/
+#include <string.h>
+#include <stdlib.h>
+#includ "config.h"
 
+/* function prototypes*/
+void help(char function_name[]);
+void page(void);
+void ignore_case(char input[], char *output);

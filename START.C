@@ -36,7 +36,20 @@ int main(void){
 	int system_init = sys_init(MODULE_R2);
 	comhan();
 	return 0;
-	sys_exit();
+
+}
+
+/*
+	Procedure: init
+	Purpose: initializing routines
+	Parameters: see prototype  
+	Return value: void
+	Calls: sys_init
+		   setup_pcb
+*/
+void init(void){
+	int system_init = sys_init(MODULE_R2);
+	setup_pcb();
 }
 
 /*
@@ -47,6 +60,7 @@ int main(void){
 	Calls: none
 */
 int closing(void){
-	// closing routines
+	destroy_pcb();
+	sys_exit();
 	return 0;
 }
