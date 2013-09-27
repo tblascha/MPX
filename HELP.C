@@ -14,6 +14,7 @@
 			 terminal window
 	
 ***********************************************/
+#include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
 #includ "config.h"
@@ -110,25 +111,36 @@ void help(char function_name[]){
 
 	}
 	else{ // display help summary
-		char sdate [] = "sdate mm/dd/yyyy - Sets the system date\n";
-		char ddate[] = "ddate - Dsiplays the current system date\n";
-		char vers[] = "ver - Displays the current version of MPX\n";
-		char dir[] = "dir path - Display all files in path\n";
-		char exit[] = "exit - Terminates MPX\n";
-
-		int size_sdate = sizeof(sdate)-1;
-		int size_ddate = sizeof(ddate)-1;
-		int size_vers = sizeof(vers)-1;
-		int size_dir = sizeof(dir)-1;
-		int size_exit = sizeof(exit)-1;
-
-		sys_req(WRITE,TERMINAL,sdate,&size_sdate);
-		sys_req(WRITE,TERMINAL,ddate,&size_ddate);
-		sys_req(WRITE,TERMINAL,vers,&size_vers);
-		sys_req(WRITE,TERMINAL,dir,&size_dir);
-		sys_req(WRITE,TERMINAL,exit,&size_exit);
+		FILE *fp;
+		fp = open_file("\Help Files\summary.txt");
+		print(fp);
 	}
 
+}
+
+FILE* open_file(char file_name[]){
+	FILE *file_pointer = fopen(file_name, "r");
+	if(file_pointer == NULL){
+		error_handle(FILE_OPEN_FAIL);
+	}
+	return file_pointer;
+}
+
+void print(FILE *file){
+	char buffer[50];
+	int count = 0;
+	int error = fscanf(file_pointer, "%s", buffer);
+	buffer[48]='\n';
+	buffer[49]='\0';
+	while(error != EOF){
+		int size = sizeof(buffer)-1;
+		sys_req(WRTIE,TERMINAL,buffer,&size);
+		error = fscanf(file_pointer,"%s",buffer);
+		count++;
+		if(count%5 == 0){
+			page();
+		}
+	}
 }
 
 /*

@@ -19,6 +19,6 @@
 #includ "config.h"
 
 /* function prototypes*/
-void help(char function_name[]);
-void page(void);
-void ignore_case(char input[], char *output);
+void help(char function_name [] /* function name from input*/);
+void ignore_case(char a[] /*initial string*/, char *b /*new string in lower case*/);
+void page(void /* no parameters */);

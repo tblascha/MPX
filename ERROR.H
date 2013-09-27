@@ -15,8 +15,13 @@
 	
 ***********************************************/
 
-#include "mpx_supt.h"
-#include "config.h"
-
+/*Error Codes*/
 #define OK 0
-// other defines as needed 
+#define PCB_DOESNT_EXIST 130
+#define PRIORITY_INVALID 131
+#define NAME_INVALID 132
+#define CLASS_INVALID 133
+#define PCB_NOT_FOUND 134
+
+/*Function Prototypes*/
+void error_handle(int error/* integer error code*/);
