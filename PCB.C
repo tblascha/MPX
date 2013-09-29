@@ -1,24 +1,34 @@
 /***********************************************
 	MPX: The MultiProgramming eXecutive
 	Start Program
-	
+
 	Authors: Dakota Kirby
 			 Corey Hartley
 			 Thomas Blaschak
 			 Wisam Al-Malack
 
 	File Name: PCB.C
-	
-	Purpose: 
-	
+
+	Purpose:
+
 ***********************************************/
 
+
+// Program Includes
 #include "mpx_supt.h"
-#include "config.h"
+#include "pcb.h"
 
 void setup(void){
 	// set up all the queues before beginning
 }
+
+void destroy_PCB(){}
+PCB* setup_PCB(char name[], int cls, int pri){}
+void free_PCB(char name[]){}
+int remove_PCB(char name[]){}
+PCB* find_PCB(char name[]){}
+void insert_PCB(char name[]){}
+void insert(char name[]){}
 void set_priority(char buffer[]){
 	char name[255];
 	char priority_string[255];
@@ -26,49 +36,50 @@ void set_priority(char buffer[]){
 	int i = 0,j =0 ;
 	PCB *change;
 	while(buffer[i] != ' ' && buffer[i] != '\n'){ // get name from buffer
-		name[i] == buffer[i]
+		name[i] = buffer[i];
 		i++;
-	}	
+	}
 	name[i] = '\0';
 	change = find_PCB(name);
 	if(change == NULL){
 		// handle error here
 		return;
 	}
-	i++;	
+	i++;
 	while(buffer[i] != ' ' && buffer[i] != '\n'){ // get priority from buffer
 		priority_string[j] = buffer[i];
 		i++;
 		j++;
-	}	
-	pritority_string = '\0';
+	}
+	priority_string[j] = '\0';
 	priority = string_to_int(priority_string);
 	if(priority <-128 || priority > 127){
 		priority = PRIORITY_INVALID;
 		// handle error here
 		return;
 	}
-	
+
 	remove(change);
-	change.priority = priorirty;
+	change->priority = priority;
 	insert(change);
 	// print success message
-		
+
 }
-void resume_pcb(char buffer[]);
-void block_pcb(char buffer[]);
+void resume_pcb(char buffer[]){}
+void block_pcb(char buffer[]){}
 void create_pcb(char buffer[]){
 	char name[255];
 	char class_string[255];
 	char priority_string[255];
-	int class
+	int class;
 	int priority;
+	PCB *change;
 	int i = 0,j =0,k=0;
 	PCB *new_PCB;
 	while(buffer[i] != ' ' && buffer[i] != '\n'){ // get name from buffer
-		name[i] == buffer[i]
+		name[i] = buffer[i];
 		i++;
-	}	
+	}
 	name[i] = '\0';
 	change = find_PCB(name);
 	if(change != NULL && strlen(name) < 8){
@@ -92,15 +103,15 @@ void create_pcb(char buffer[]){
 		priority_string[k] = buffer[i];
 		i++;
 		k++;
-	}	
-	pritority_string = '\0';
+	}
+	priority_string[k] = '\0';
 	priority = string_to_int(priority_string);
 	if(priority <-128 || priority > 127){
 		priority = PRIORITY_INVALID;
 		// handle error here
 		return;
 	}
-	
+
 	new_PCB = setup_PCB(name,class,priority);
 	if (new_PCB == NULL){
 		// handle error
@@ -108,16 +119,16 @@ void create_pcb(char buffer[]){
 	}
 	insert_PCB(new_PCB);
 }
-	
+
 void delete_pcb(char buffer[]){
 	char name[255];
 	int i = 0;
 	int error;
 	PCB *remove;
 	while(buffer[i] != ' ' && buffer[i] != '\n'){ // get name from buffer
-		name[i] == buffer[i]
+		name[i] = buffer[i];
 		i++;
-	}	
+	}
 	name[i] = '\0';
 	remove = find_PCB(name);
 	if (remove == NULL){
@@ -136,12 +147,12 @@ void delete_pcb(char buffer[]){
 	}
 }
 
-void show_all(void);
-void show_blocked(void);
-void show_ready(void);
-void suspend_pcb(char buffer[]);
-void unblock_pcb(char buffer[]);
-void show_pcb(char buffer[]);
+void show_all(void){}
+void show_blocked(void){}
+void show_ready(void){}
+void suspend_pcb(char buffer[]){}
+void unblock_pcb(char buffer[]){}
+void show_pcb(char buffer[]){}
 
 int string_to_int(char string[]){
 	int i=0, sum = 0, mult = 1;

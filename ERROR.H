@@ -15,13 +15,20 @@
 	
 ***********************************************/
 
-/*Error Codes*/
-#define OK 0
-#define PCB_DOESNT_EXIST 130
-#define PRIORITY_INVALID 131
-#define NAME_INVALID 132
-#define CLASS_INVALID 133
-#define PCB_NOT_FOUND 134
+#include "mpx_supt.h"
+#include "config.h"
 
-/*Function Prototypes*/
-void error_handle(int error/* integer error code*/);
+// all swole team six error coeds
+#define OK 				(0000)
+#define CMD_NOT_FOUND 	(-200)
+#define HELP_NOT_FOUND 	(-201)
+#define NAME_INVLD		(-202)
+#define PRIO_IVNLD		(-203)
+#define PCB_EXIST		(-204)
+#define MONTH_INVLD		(-205)
+#define YEAR_INVLD		(-206)
+#define DATE_IVNLD		(-207)
+#define ERROR 			(-999)
+// other defines as needed
+
+void error_handle(int error_no/* corresponds to error number defined above*/);

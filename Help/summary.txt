@@ -1,0 +1,16 @@
+block name			- Blocks a certain PCB
+cpcb name class priority 	- Creates a PCB with data fields
+ddate 				- Displays the current system date
+dir path 			- Display all files in path
+dpcb name			- Deletes a PCB based on name
+exit 				- Terminates MPX
+resum name			- Resumes a certain PCB
+sall				- Shows all PCBs 
+sblock				- Shows all PCBs in blocked queue
+sdate mm/dd/yyyy 		- Sets the system date
+spcb name			- Shows the specific PCB
+sprio name priority		- Sets a process with new priority
+sready				- Shows all PCBs in ready queue
+suspd name			- Suspends a certain PCB
+ublock name 			- Unlocks a certain PCB
+ver 				- Displays the current version of MPX

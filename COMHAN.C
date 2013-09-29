@@ -20,17 +20,17 @@
 		look_dir
 		disp_version
 		ignore_case
+		page
 
 ***********************************************/
 
 // Program Includes
-#include <stdlib.h>
-#include <string.h>
-#include "mpx_supt.h"
 #include "config.h"
+#include "mpx_supt.h"
 #include "comhan.h"
-#include "error.h"
 #include "pcb.h"
+#include "help.h"
+#include "error.h"
 
 /*
 	Procedure: comhan
@@ -71,7 +71,6 @@ void comhan(void){
 		i=0;
 		j=0;
 		skip = FALSE;
-
 		// see if blank input
 		if (input_buffer[0] == '\n'){
 			temp[0] = 'n';
@@ -151,9 +150,7 @@ void comhan(void){
 			continue;
 		}
 		else { // command not found
-			char message[] = "Command not found\n";
-			int size = sizeof(message)-1;
-			sys_req(WRITE,TERMINAL,message, &size);
+			error_handle(CMD_NOT_FOUND);
 		}
 
 	}
@@ -439,23 +436,13 @@ int stringToDate(date_rec *newDate, char date[]) {
 void look_dir(char input[]){
 		// initialize
 		int err;
-
-		char invdir[] = "Invalid directory\n";
-		char diropn[] = "Error opening directory\n";
-		char dircls[] = "Error closing directory\n";
-		char other[] = "An unknown error occurred\n";
 		char header[] = "File Name\tSize(Bytes)\n";
 		char directory[255];
-
-		int invdir_size = sizeof(invdir)-1;
-		int diropn_size = sizeof(diropn)-1;
-		int dircls_size = sizeof(dircls)-1;
-		int other_size = sizeof(other)-1;
 		int header_size = sizeof(header)-1;
 		int i=0,j=0,count =0;
 
 		// get directory from input
-		if(input != NULL && input != "\n"){
+		if(input != NULL && input[0] != '\n'&& input[0] !='\0'){
 			while(input[j] != '\n'){
 				directory[j] = input[j];
 				j++;
@@ -469,13 +456,13 @@ void look_dir(char input[]){
 
 		// if fail display error messages
 		if (err == ERR_SUP_INVDIR){
-			sys_req(WRITE,TERMINAL,invdir,&invdir_size);
+			error_handle(ERR_SUP_INVDIR);
 		}
 		else if(err == ERR_SUP_DIROPN){
-			sys_req(WRITE,TERMINAL,diropn,&diropn_size);
+			error_handle(ERR_SUP_DIROPN);
 		}
 		else if(err != OK){
-			sys_req(WRITE,TERMINAL,other,&other_size);
+			error_handle(ERROR);
 		}
 		// if directory opened display header
 		if(err == OK){
@@ -484,8 +471,8 @@ void look_dir(char input[]){
 		// if directory opened try to find first record
 		while(1 && err == OK){
 			// initialize buffers for entries
-			char buffer[20];
-			char size[10];
+			char buffer[255];
+			char size[255];
 			char output[30]="";
 
 			int buf_size = sizeof(buffer);
@@ -506,7 +493,7 @@ void look_dir(char input[]){
 			// Wirte output to the screen
 			sys_req(WRITE,TERMINAL,output,&output_size);
 			count++;
-			if (count % 5 == 0){
+			if (count % 10 == 0){
 				page();
 			}
 		}
@@ -514,10 +501,10 @@ void look_dir(char input[]){
 		err = sys_close_dir();
 		// if fail display message
 		if(err == ERR_SUP_DIRCLS){
-			sys_req(WRITE,TERMINAL,dircls,&dircls_size);
+			error_handle(ERR_SUP_DIRCLS);
 		}
 		else if (err != OK){
-			sys_req(WRITE,TERMINAL,other,&other_size);
+			error_handle(ERROR);
 		}
 		sys_free_mem(directory);
 
@@ -532,10 +519,9 @@ void look_dir(char input[]){
 		   sizeof
 */
 void disp_version(void){
-	char version_message[39] = "MPX Version 1.0 Last Modified 9/9/2013\n";
-	int version_size = sizeof(version_message);
+	char version_message[] = "MPX Version 2.0 - Last Modified On 10/4/2013\n";
+	int version_size = strlen(version_message);
 	sys_req(WRITE,TERMINAL, version_message, &version_size);
-	// version message error handling
 }
 
 /*
@@ -551,7 +537,7 @@ void page(void){
 	char buffer [255];
 	int msize = sizeof(message)-1;
 	int bsize = sizeof(buffer);
-	
+
 	sys_req(WRITE,TERMINAL,message, &msize);
 	sys_req(READ,TERMINAL,buffer, &bsize);
 }
@@ -559,7 +545,7 @@ void page(void){
 /*
 	Procedure: ignore_case
 	Purpose: converts input to all lower case
-	Parameters: see prototype  
+	Parameters: see prototype
 	Return value: void
 	Calls: strlen
 		   tolower

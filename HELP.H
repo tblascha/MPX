@@ -16,9 +16,11 @@
 ***********************************************/
 #include <string.h>
 #include <stdlib.h>
-#includ "config.h"
+#include "config.h"
+#include "comhan.h"
 
 /* function prototypes*/
-void help(char function_name [] /* function name from input*/);
-void ignore_case(char a[] /*initial string*/, char *b /*new string in lower case*/);
-void page(void /* no parameters */);
+void help(char function_name[]);
+FILE* open_file(char filename[]);
+void print(FILE* fp);
+void page_wait(void);

@@ -10,23 +10,23 @@
 	File Name: START.C
 	
 	Purpose: Allows comhan to run and initializes and closes program
-	
+
 	Procedures In This Program
 		main
 		closing
-	
+
 ***********************************************/
 
 // Program Includes
+
+// Program Includes
 #include "mpx_supt.h"
-#include "comhan.h"
-#include "start.h"
 #include "config.h"
 #include "error.h"
 
 /*
 	Procedure: main
-	Purpose: runs all commands 
+	Purpose: runs all commands
 	Return value: void
 	Calls: sys_init
 		   comhan
@@ -42,7 +42,7 @@ int main(void){
 /*
 	Procedure: init
 	Purpose: initializing routines
-	Parameters: see prototype  
+	Parameters: see prototype
 	Return value: void
 	Calls: sys_init
 		   setup_pcb
@@ -55,7 +55,7 @@ void init(void){
 /*
 	Procedure: closing
 	Purpose: closing routines
-	Parameters: see prototype  
+	Parameters: see prototype
 	Return value: void
 	Calls: none
 */

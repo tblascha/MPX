@@ -1,23 +1,24 @@
 /***********************************************
 	MPX: The MultiProgramming eXecutive
 	Start Program
-	
+
 	Authors: Dakota Kirby
 			 Corey Hartley
 			 Thomas Blaschak
 			 Wisam Al-Malack
 
 	File Name: HELP.C
-	
+
 	Purpose: Handles import help text files such that
 			 it can be used to display to the
 			 terminal window
-	
+
 ***********************************************/
 #include <stdio.h>
 #include <string.h>
-#include <stdlib.h>
-#includ "config.h"
+#include "mpx_supt.h"
+#include "help.h"
+#include "comhan.h"
 
 /*
 	Procedure: help
@@ -112,8 +113,9 @@ void help(char function_name[]){
 	}
 	else{ // display help summary
 		FILE *fp;
-		fp = open_file("\Help Files\summary.txt");
+		fp = open_file("C:\\summary.txt");
 		print(fp);
+		fclose(fp);
 	}
 
 }
@@ -121,58 +123,43 @@ void help(char function_name[]){
 FILE* open_file(char file_name[]){
 	FILE *file_pointer = fopen(file_name, "r");
 	if(file_pointer == NULL){
-		error_handle(FILE_OPEN_FAIL);
+		printf("error");
+	       //	error_handle(FILE_OPEN_FAIL);
 	}
 	return file_pointer;
 }
 
 void print(FILE *file){
-	char buffer[50];
+	char buffer[100];
+	char end[10] = " \n";
+	int ends = strlen(end);
 	int count = 0;
-	int error = fscanf(file_pointer, "%s", buffer);
-	buffer[48]='\n';
-	buffer[49]='\0';
-	while(error != EOF){
-		int size = sizeof(buffer)-1;
-		sys_req(WRTIE,TERMINAL,buffer,&size);
-		error = fscanf(file_pointer,"%s",buffer);
+	int size;
+	while(fgets(buffer,sizeof(buffer),file) != NULL){
+		size = strlen(buffer);
+		sys_req(WRITE,TERMINAL,buffer,&size);
 		count++;
-		if(count%5 == 0){
+		if(count%10 == 0){
 			page();
 		}
 	}
+	sys_req(WRITE,TERMINAL,end,&ends);
 }
 
 /*
 	Procedure: page
 	Purpose: to help create in pages when they may be longer than the screen
-	Parameters: see prototype  
+	Parameters: see prototype
 	Return value: void
 	Calls: sizeof
 		   sys_req
 */
-void page(void){
+void page_wait(void){
 	char message[] = "\nPress ANY KEY(s) then ENTER to continue. \n";
 	char buffer [255];
 	int msize = sizeof(message)-1;
 	int bsize = sizeof(buffer);
-	
-	sys_req(WRITE,TERMINAL,message, &msize);
-	sys_req(READ,TERMINAL,buffer, &bsize);
-}
 
-/*
-	Procedure: ignore_case
-	Purpose: converts input to all lower case
-	Parameters: see prototype  
-	Return value: void
-	Calls: strlen
-		   tolower
-*/
-void ignore_case(char input[], char *output){
-	int i, length = strlen(input);
-	for (i=0; i < length; i++){
-		output[i] = tolower(input[i]); // convert char to lower case
-	}
-	output[length] = '\0';
+       //	sys_req(WRITE,TERMINAL,message, &msize);
+       //	sys_req(READ,TERMINAL,buffer, &bsize);
 }
