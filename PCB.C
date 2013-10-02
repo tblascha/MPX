@@ -19,7 +19,29 @@
 #include "pcb.h"
 
 void setup(void){
-	// set up all the queues before beginning
+	//ready queue
+	ready.count = 0;
+	ready.head = NULL;
+	ready.tail = NULL;
+	sys_alloc_mem(&ready);	
+
+	//blocked queue
+	blocked.count = 0;
+	blocked.head = NULL;
+	blocked.tail = NULL;
+	sys_alloc_mem(&blocked);
+	
+	//ready suspended queue
+	ready_suspended.count = 0;
+	ready_suspended.head = NULL;
+	ready_suspended_tail = NULL;
+	sys_alloc_mem(&ready_suspended);
+
+	//blocked suspended queue
+	blocked_suspended.count = 0;
+	blocked_suspended.head = NULL;
+	blocked_suspended.tail = NULL;
+	sys_alloc_mem(&blocked_suspended);
 }
 
 void destroy_PCB(){}
