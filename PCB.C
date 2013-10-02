@@ -170,8 +170,28 @@ void delete_pcb(char buffer[]){
 }
 
 void show_all(void){}
-void show_blocked(void){}
-void show_ready(void){}
+void show_blocked(void){
+	int i; 
+	buffer_size = 255;
+	char ready[15] = "Blocked Queue:\n\n";
+	char value[buffersize] = null;
+	sys_req(WRITE, TERMINAL, , &buffer_size);
+	for(i=blocked->front; i<blocked->back; i++){
+		value = blocked->store[j];
+		sys_req(WRITE, TERMINAL, value, &buffer_size);	
+	}
+}
+void show_ready(void){
+	int i; 
+	buffer_size = 255;
+	char ready[15] = "Ready Queue:\n\n";
+	char value[buffersize] = null;
+	sys_req(WRITE, TERMINAL, , &buffer_size);
+	for(i=ready->front; i<ready->back; i++){
+		value = ready->store[j];
+		sys_req(WRITE, TERMINAL, value, &buffer_size);	
+	}
+}
 void suspend_pcb(char buffer[]){}
 void unblock_pcb(char buffer[]){}
 void show_pcb(char buffer[]){}
